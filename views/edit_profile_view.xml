@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Inherit the existing profile edit form -->
+        <template id="view_profile_edit_form_inherit" inherit_id="website_profile.user_profile_edit_content">
+            <!-- Replace the City field -->
+            <xpath expr="//input[@id='user_city']/parent::div/parent::div" position="replace">
+                <div class="mb-3 col-6">
+                    <label class="mb-1 text-primary" for="il_id"><span class="fw-bold">Il</span></label>
+                    <div>
+                        <select name="il_id" id="il_id" class="form-select">
+                            <t t-foreach="departments.filtered(lambda d: d.department_type == 'il')" t-as="il">
+                                <option t-att-value="il.id" t-att-selected="user.il_id.id == il.id">
+                                    <t t-esc="il.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </xpath>
+            <!-- Replace the Country field -->
+            <xpath expr="//select[@name='country']/parent::div/parent::div" position="replace">
+                <div class="mb-3 col-6">
+                    <label class="mb-1 text-primary" for="ilce_id"><span class="fw-bold">Ilçe</span></label>
+                    <div>
+                        <select name="ilce_id" id="ilce_id" class="form-select">
+                            <t t-foreach="departments.filtered(lambda d: d.department_type == 'ilce')" t-as="ilce">
+                                <option t-att-value="ilce.id" t-att-selected="user.ilce_id.id == ilce.id">
+                                    <t t-esc="ilce.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 col-6">
+                    <label class="mb-1 text-primary" for="lise_id"><span class="fw-bold">Lise</span></label>
+                    <div>
+                        <select name="lise_id" id="lise_id" class="form-select">
+                            <t t-foreach="departments.filtered(lambda d: d.department_type == 'lise')" t-as="lise">
+                                <option t-att-value="lise.id" t-att-selected="user.lise_id.id == lise.id">
+                                    <t t-esc="lise.name"/>
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

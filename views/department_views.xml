@@ -1,0 +1,138 @@
+<odoo>
+    <!-- İl Form View -->
+    <record id="view_form_il_department" model="ir.ui.view">
+        <field name="name">il.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="department_type" invisible="1"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- İl Tree View -->
+    <record id="view_tree_il_department" model="ir.ui.view">
+        <field name="name">il.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="name"/>
+                <field name="department_type" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- İl Action -->
+    <record id="action_il_departments" model="ir.actions.act_window">
+        <field name="name">İller</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'il')]</field>
+        <field name="context">{'default_department_type': 'il'}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_il_department')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_il_department')})]"/>
+    </record>
+
+    <!-- İlçe Form View -->
+    <record id="view_form_ilce_department" model="ir.ui.view">
+        <field name="name">ilce.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <group>
+
+                    <field name="department_type" invisible="1"/>
+
+                    <field name="parent_id" domain="[('department_type', '=', 'il')]" string="İl"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- İlçe Tree View -->
+    <record id="view_tree_ilce_department" model="ir.ui.view">
+        <field name="name">ilce.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+
+                <field name="parent_id" string="İl"/>
+                <field name="department_type" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- İlçe Action -->
+    <record id="action_ilce_departments" model="ir.actions.act_window">
+        <field name="name">İlçeler</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'ilce')]</field>
+        <field name="context">{'default_department_type': 'ilce'}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_ilce_department')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_ilce_department')})]"/>
+    </record>
+
+     <record id="view_form_lise_department" model="ir.ui.view">
+        <field name="name">lise.department.form</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <group>
+
+                    <field name="department_type" invisible="1"/>
+
+                    <field name="parent_id" domain="[('department_type', '=', 'ilce')]" string="İlçe"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- İlçe Tree View -->
+    <record id="view_tree_lise_department" model="ir.ui.view">
+        <field name="name">lise.department.tree</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+
+                <field name="parent_id" string="İl"/>
+                <field name="department_type" invisible="1"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- İlçe Action -->
+    <record id="action_lise_departments" model="ir.actions.act_window">
+        <field name="name">Liseler</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'lise')]</field>
+        <field name="context">{'default_department_type': 'lise'}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_tree_lise_department')}), (0, 0, {'view_mode': 'form', 'view_id': ref('view_form_lise_department')})]"/>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="teskilat_main_menu" name="Teşkilat" sequence="10"/>
+    <menuitem id="menu_birimler" name="Birimler" parent="teskilat_main_menu" sequence="10"/>
+    <menuitem id="menu_iller" name="İller" parent="menu_birimler" sequence="10" action="teskilat.action_il_departments"/>
+    <menuitem id="menu_ilceler" name="İlçeler" parent="menu_birimler" sequence="20" action="teskilat.action_ilce_departments"/>
+    <menuitem id="menu_liseler" name="Liseler" parent="menu_birimler" sequence="30" action="teskilat.action_lise_departments"/>
+</odoo>

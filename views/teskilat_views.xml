@@ -1,0 +1,30 @@
+<odoo>
+    <!-- Action Definitions -->
+    <record id="action_il_departments" model="ir.actions.act_window">
+        <field name="name">İller</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'il')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_ilce_departments" model="ir.actions.act_window">
+        <field name="name">İlçeler</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'ilce')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_lise_departments" model="ir.actions.act_window">
+        <field name="name">Liseler</field>
+        <field name="res_model">hr.department</field>
+        <field name="domain">[('department_type', '=', 'lise')]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="teskilat_main_menu" name="Teşkilat" sequence="10"/>
+    <menuitem id="menu_birimler" name="Birimler" parent="teskilat_main_menu" sequence="10"/>
+    <menuitem id="menu_iller" name="İller" parent="menu_birimler" sequence="10" action="teskilat.action_il_departments"/>
+    <menuitem id="menu_ilceler" name="İlçeler" parent="menu_birimler" sequence="20" action="teskilat.action_ilce_departments"/>
+    <menuitem id="menu_liseler" name="Liseler" parent="menu_birimler" sequence="30" action="teskilat.action_lise_departments"/>
+</odoo>

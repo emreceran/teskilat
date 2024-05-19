@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="user_profile_edit_main" name="Edit Profile">
+        <t t-set="body_classname" t-value="'o_wprofile_body'"/>
+        <t t-call="website.layout">
+            <div id="wrap" class="o_wprofile_wrap">
+                <div class="container pt-4 pb-5">
+                    <t t-call="website_profile.user_profile_edit_content"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="profile_edit" name="Profile Edit">
+        <form action="/profile/save" method="post">
+            <div class="form-group">
+                <label for="il_id">Il</label>
+                <select name="il_id" id="il_id" class="form-select">
+                    <t t-foreach="departments.filtered(lambda d: d.department_type == 'il')" t-as="il">
+                        <option t-att-value="il.id" t-att-selected="user.il_id.id == il.id">
+                            <t t-esc="il.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ilce_id">Ilçe</label>
+                <select name="ilce_id" id="ilce_id" class="form-select">
+                    <t t-foreach="departments.filtered(lambda d: d.department_type == 'ilce')" t-as="ilce">
+                        <option t-att-value="ilce.id" t-att-selected="user.ilce_id.id == ilce.id">
+                            <t t-esc="ilce.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lise_id">Lise</label>
+                <select name="lise_id" id="lise_id" class="form-select">
+                    <t t-foreach="departments.filtered(lambda d: d.department_type == 'lise')" t-as="lise">
+                        <option t-att-value="lise.id" t-att-selected="user.lise_id.id == lise.id">
+                            <t t-esc="lise.name"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </template>
+</odoo>
